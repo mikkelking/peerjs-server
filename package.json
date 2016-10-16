@@ -1,6 +1,6 @@
 {
   "name": "peer",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "PeerJS server component",
   "main": "lib/index.js",
   "bin": {
@@ -8,9 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/peers/peerjs-server.git"
+    "url": "git://github.com/mikkelking/peerjs-server.git"
   },
-  "author": "Michelle Bu, Eric Zhang",
+  "author": "Michelle Bu, Eric Zhang, Mike King",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.9.0",

@@ -3,6 +3,7 @@
 var path = require('path')
   , pkg = require('../package.json')
   , fs = require('fs')
+  , _ = require('lodash')
   , version = pkg.version
   , PeerServer = require('../lib').PeerServer
   , util = require('../lib/util')
@@ -48,7 +49,7 @@ var path = require('path')
         description: 'path to SSL certificate'
       },
       port: {
-        demand: true,
+        demand: false,      // Can be set with env var PEERJS_PORT
         alias: 'p',
         description: 'port'
       },
@@ -68,6 +69,27 @@ var path = require('path')
 process.on('uncaughtException', function(e) {
   console.error('Error: ' + e);
 });
+
+// Now look for environment variables to override the cmd line options
+var envParams = {
+  port: 'PEERJS_PORT'
+  ,key: 'PEERJS_KEY'
+  ,sslkey: 'PEERJS_SSLKEY'
+  ,sslcert: 'PEERJS_SSLCERT'
+  ,debug: 'PEERJS_DEBUG'
+};
+_.each(_.keys(envParams),function(param) {
+  if (process.env[envParams[param]]) {
+    opts[param] = process.env[envParams[param]];
+  }
+});
+
+if (!opts.port) {
+  util.prettyError('Error: PeerServer will not run without a port, '
+    +'either on the command line (e.g. --port 9000) '
+    +'or as an environment variable (PEERJS_PORT=9000)');
+  process.exit(1);  
+}
 
 if (opts.sslkey || opts.sslcert) {
   if (opts.sslkey && opts.sslcert) {
