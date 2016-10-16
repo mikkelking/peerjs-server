@@ -110,6 +110,19 @@ when the peer can no longer be reached.
 server.on('disconnect', function(id) { ... });
 ```
 
+## ENVIRONMENT VARIABLES
+
+You can also specify some options with environment variables, eg
+
+```
+PEERJS_PORT=8000
+PEERJS_KEY=1234
+PEERJS_SSLKEY=xxx...
+PEERJS_SSLCERT=xxxx...
+PEERJS_DEBUG=1
+```
+These are processed *after* command line options, so will override them.
+
 ## Problems?
 
 Discuss PeerJS on our Google Group:
