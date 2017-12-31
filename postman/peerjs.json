@@ -1,0 +1,110 @@
+{
+	"info": {
+		"name": "PeerJS",
+		"_postman_id": "7f905717-2d59-c76b-6773-119b8c2ae1ec",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "peerjs GET announce",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{server}}/",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						""
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "peerjs GET /:key/id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{server}}/test/id",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"test",
+						"id"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "peerjs GET /:id/onlineusers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{server}}/TESTING/my.id/onlineusers",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"TESTING",
+						"my.id",
+						"onlineusers"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "peerjs GET /:key/peers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{server}}/TESTING/peers",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"TESTING",
+						"peers"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "peerjs GET /BOGUS/URL",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{server}}/BOGUS/URL",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"BOGUS",
+						"URL"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
