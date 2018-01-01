@@ -30,6 +30,6 @@
   "scripts": {
     "test": "mocha test",
     "start": "bin/peerjs --port ${PORT:=9000}",
-	"api.test": "newman -e postman/env.localhost.json -c postman/peerjs.json"
+    "api.test": "newman run  postman/peerjs.json -e postman/env.localhost.json "
   }
 }
