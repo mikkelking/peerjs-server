@@ -7,7 +7,104 @@
 	},
 	"item": [
 		{
+			"name": "Prep",
+			"description": "",
+			"item": [
+				{
+					"name": "Fetch Testing Framework",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.setGlobalVariable(\"describe-it\", responseBody);",
+									"try {",
+									"    eval(responseBody);",
+									"}",
+									"catch (e) { }",
+									"tests['Framework ready'] = (typeof describe === 'function');"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://gist.githubusercontent.com/MikeDBR/6972ab41d2f9ecfebf50328f669c61d0/raw/8f9ed6e141eb3df9a073716b3537790ed395591d/describe-it.js",
+							"protocol": "https",
+							"host": [
+								"gist",
+								"githubusercontent",
+								"com"
+							],
+							"path": [
+								"MikeDBR",
+								"6972ab41d2f9ecfebf50328f669c61d0",
+								"raw",
+								"8f9ed6e141eb3df9a073716b3537790ed395591d",
+								"describe-it.js"
+							]
+						},
+						"description": "This loads the mocha-like testing framework into Postman. You need to run this first.\n\nIt loads a GIST that I forked, find it here\nhttps://gist.github.com/MikeDBR/6972ab41d2f9ecfebf50328f669c61d0\n\nI added a toContain method, so we can match a partial string"
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "peerjs GET announce",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "145000a5-b773-4f77-abd0-9cfe31adf70c",
+						"type": "text/javascript",
+						"exec": [
+							"eval(postman.getGlobalVariable(\"describe-it\"));",
+							"",
+							"describe (\"response\", function () {",
+							"  it (\"must have application/json content type header\", function () {",
+							"    expect(responseHeaders['Content-Type'])",
+							"      .toBe('application/json; charset=utf-8');",
+							"  });",
+							"",
+							"  it (\"must return a 200 status code\", function () {",
+							"    expect(responseCode.code).toEql(200);",
+							"  });",
+							"});",
+							"  ",
+							"    describe(\"response\", function () {",
+							"    var responseJSON = JSON.parse(responseBody);",
+							"        it(\"must have a name of PeerJS Server \", function () {",
+							"          expect(responseJSON.name).toEql(\"PeerJS Server\");",
+							"        });",
+							"        it(\"must have a description\", function () {",
+							"          var len = responseJSON.description.length > 0",
+							"          expect(len).toEql(true);",
+							"        });",
+							"        it(\"must have a website \", function () {",
+							"          var len = responseJSON.website.length > 0",
+							"          expect(len).toEql(true);",
+							"        });",
+							"    });",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -27,17 +124,57 @@
 		},
 		{
 			"name": "peerjs GET /:key/id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ce03c01a-4137-4b38-8c2c-e502cd9eddab",
+						"type": "text/javascript",
+						"exec": [
+							"eval(postman.getGlobalVariable(\"describe-it\"));",
+							"",
+							"describe (\"response\", function () {",
+							"  it (\"must have text/html content type header\", function () {",
+							"    expect(responseHeaders['Content-Type'])",
+							"      .toBe('text/html; charset=utf-8');",
+							"  });",
+							"",
+							"  it (\"must return a 200 status code\", function () {",
+							"    expect(responseCode.code).toEql(200);",
+							"  });",
+							"});",
+							"  ",
+							"    describe(\"response\", function () {",
+							"    var len = responseBody.length;",
+							"    postman.setEnvironmentVariable(\"peerId\", responseBody);",
+							"        it(\"must return an id \", function () {",
+							"          expect(len).toEql(16);",
+							"        });",
+							"    });",
+							"// example using pm.response.to.have",
+							"// postman.test(\"response is ok\", function () {",
+							"    // postman.response.to.have.status(200);",
+							"// });",
+							"",
+							"tests[\"respoonse is ok\"] = responseCode.code === 200;",
+							"tests[\"id length should be 16\"] = responseBody.length === 16;",
+							"",
+							""
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "{{server}}/test/id",
+					"raw": "{{server}}/peerjs/id",
 					"host": [
 						"{{server}}"
 					],
 					"path": [
-						"test",
+						"peerjs",
 						"id"
 					]
 				},
@@ -47,18 +184,55 @@
 		},
 		{
 			"name": "peerjs GET /:id/onlineusers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90237a85-cf0a-4871-a892-4b286f7d3b2b",
+						"type": "text/javascript",
+						"exec": [
+							"eval(postman.getGlobalVariable(\"describe-it\"));",
+							"",
+							"describe (\"response\", function () {",
+							"  it (\"must have application/json content type header\", function () {",
+							"    expect(responseHeaders['Content-Type'])",
+							"      .toBe('application/json; charset=utf-8');",
+							"  });",
+							"",
+							"  it (\"must return a 200 status code\", function () {",
+							"    expect(responseCode.code).toEql(200);",
+							"  });",
+							"});",
+							"  ",
+							"    describe(\"response\", function () {",
+							"    var responseJSON = JSON.parse(responseBody);",
+							"        it(\"must have a failure\", function () {",
+							"          var m = responseJSON.msg.match(/^Fail/)",
+							"          expect(m[0]).toEql(\"Fail\");",
+							"        });",
+							"        it(\"must return no users\", function () {",
+							"          expect(responseJSON.users.length).toEql(0);",
+							"        });",
+							"    });",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "{{server}}/TESTING/my.id/onlineusers",
+					"raw": "{{server}}/peerjs/{{peerId}}/onlineusers",
 					"host": [
 						"{{server}}"
 					],
 					"path": [
-						"TESTING",
-						"my.id",
+						"peerjs",
+						"{{peerId}}",
 						"onlineusers"
 					]
 				},
@@ -67,7 +241,40 @@
 			"response": []
 		},
 		{
-			"name": "peerjs GET /:key/peers",
+			"name": "peerjs GET /:key/peers FAIL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "82772a18-305a-4a67-baa6-120bbccf0ca8",
+						"type": "text/javascript",
+						"exec": [
+							"eval(postman.getGlobalVariable(\"describe-it\"));",
+							"",
+							"describe (\"response\", function () {",
+							"  it (\"must have text/plain content type header\", function () {",
+							"    expect(responseHeaders['Content-Type'])",
+							"      .toBe('text/plain; charset=utf-8');",
+							"  });",
+							"",
+							"  it (\"must return a 404 status code\", function () {",
+							"    expect(responseCode.code).toEql(404);",
+							"  });",
+							"});",
+							"  ",
+							"    describe(\"response\", function () {",
+							"        it(\"must have a failure\", function () {",
+							"          var m = responseBody.match(/Not Found/)",
+							"          expect(m[0]).toEql(\"Not Found\");",
+							"        });",
+							"    });",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -87,7 +294,93 @@
 			"response": []
 		},
 		{
+			"name": "peerjs GET /:key/peers OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "82772a18-305a-4a67-baa6-120bbccf0ca8",
+						"type": "text/javascript",
+						"exec": [
+							"eval(postman.getGlobalVariable(\"describe-it\"));",
+							"",
+							"describe (\"response\", function () {",
+							"  it (\"must have text/plain content type header\", function () {",
+							"    expect(responseHeaders['Content-Type'])",
+							"      .toBe('text/plain; charset=utf-8');",
+							"  });",
+							"",
+							"  it (\"must return a 404 status code\", function () {",
+							"    expect(responseCode.code).toEql(404);",
+							"  });",
+							"});",
+							"  ",
+							"    describe(\"response\", function () {",
+							"        it(\"must have a failure\", function () {",
+							"          var m = responseBody.match(/Not Found/)",
+							"          expect(m[0]).toEql(\"Not Found\");",
+							"        });",
+							"    });",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{server}}/peerjs/peers",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"peerjs",
+						"peers"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
 			"name": "peerjs GET /BOGUS/URL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0f560ad2-92b7-4c1e-a4f1-91534072448d",
+						"type": "text/javascript",
+						"exec": [
+							"eval(postman.getGlobalVariable(\"describe-it\"));",
+							"",
+							"describe (\"response\", function () {",
+							"  it (\"must have text/html content type header\", function () {",
+							"    expect(responseHeaders['Content-Type'])",
+							"      .toBe('text/html; charset=utf-8');",
+							"  });",
+							"",
+							"  it (\"must return a 404 status code\", function () {",
+							"    expect(responseCode.code).toEql(404);",
+							"  });",
+							"});",
+							"  ",
+							"    describe(\"response\", function () {",
+							"        it(\"must have a failure\", function () {",
+							"          var m = responseBody.match(/Cannot GET/)",
+							"          expect(m[0]).toEql(\"Cannot GET\");",
+							"        });",
+							"    });",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
